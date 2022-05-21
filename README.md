@@ -40,6 +40,6 @@ A command-line tool that creates a professional README.md file based on the user
 
 ## License
 
-  Copyright (c) Tye Stanley. All rights reserved.
+  Copyright &copy; Tye Stanley. All rights reserved.
   
   Licensed under the [MIT](LICENSE) license.
