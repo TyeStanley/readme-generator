@@ -1,11 +1,10 @@
-// TODO: Include packages needed for this application
+// Includes packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
 const emailValidator = require('email-validator');
+const generateMarkdown = require('./utils/generateMarkdown');
 
-const generateMarkdown = require('generate-markdown');
-
-// TODO: Create an array of questions for user input
+// Creates an array of questions for user input
 const questions = [
     {
         type: 'input',
@@ -27,7 +26,7 @@ const questions = [
         type: 'input',
         name: 'description',
         message: 'What do you want your project description to be?',
-        validate: (description) => {
+        validate: (value) => {
             if (value) { return true } else { return 'Please enter description.' }
         }
     },
@@ -82,24 +81,31 @@ const questions = [
     {
         type: 'input',
         name: 'email',
-        message: 'What is your email addres?',
+        message: 'What is your email address?',
         validate: (value) => {
             if (emailValidator.validate(value)) {
                 return true
-            } else { return 'Please enter a valid email address' }
+            } else { return 'Please enter a valid email address.' }
         }
     }
-
 ];
 
-// TODO: Create a function to write README file
+// Creates a function to write README file
 function writeToFile(fileName, data) {
-
+    fs.writeFile(fileName, data, (err) => {
+        if (err) {
+            console.log(err);
+        }
+    })
 }
 
-// TODO: Create a function to initialize app
+// Creates a function to initialize app
 function init() {
-    
+    inquirer
+        .prompt(questions)
+        .then( (data) => {
+            writeToFile('README.md', generateMarkdown(data));
+        })
 }
 
 // Function call to initialize app
